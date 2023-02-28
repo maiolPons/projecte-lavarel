@@ -1,0 +1,35 @@
+.item-main img{
+    max-width: 90%;
+    max-height: 70%;
+    display: block;
+    margin: auto;
+    border-radius: 10px;
+}
+.item-main{
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.555);
+    max-height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    text-decoration: none;
+    color: black;
+}
+.item-main p{
+    text-decoration:none;
+    color: black;
+}
+.item-holder-main{
+    height: 20%;
+    display: flex;
+    gap: 10px;
+}
+.titleSection{
+    font-size: 26px;
+    border-bottom: rgba(172, 172, 32, 0.473) solid 2px;
+    margin-bottom: 10px;
+}
+#divMap{
+    height: 50vh;
+}
