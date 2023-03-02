@@ -33,6 +33,7 @@ $(document).ready(function(){
         $("#FormulariAlta").modal("hide");
     });
 });
+
 //
 $('#flexCheckDefault').change(function(){
     if ($('#flexCheckDefault').is(':checked') == true){

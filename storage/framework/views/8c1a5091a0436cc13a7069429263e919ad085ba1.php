@@ -12,12 +12,7 @@
                     Curses disponibles!
                 </div>
             </div>
-            <div class="visible-print text-center">
-                <?php echo QrCode::size(100)->generate(Request::url()); ?>
-
-                <p>Scan me to return to the original page.</p>
-               
-            </div>
+   
             <div class="row">
                 <div class="col-12 item-holder-main">
                 <?php $__currentLoopData = $cursesNoExprire; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cursa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

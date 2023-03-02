@@ -8,7 +8,7 @@
             <h1>llistar curses</h1>
         </div>
         <div class="row">
-        <table>
+        <table id="racesTables">
             <tr><th>Descripcio</th><th>Desnivell</th><th>url mapa</th><th>maxim participants</th><th>Kilometres</th><th>Preu Sponsor</th><th>Imatge promocional</th><th>Hora</th><th>Dia</th></tr>
         <?php $__currentLoopData = $curses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cursa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
@@ -27,7 +27,33 @@
             <?php else: ?>
                 <td><button class="btn"><a href="<?php echo e(route('actualitzarEstatCurses', $cursa->id)); ?>">Activar</a></button></td>
             <?php endif; ?>
-            
+            <p>
+            <td>
+                <a class="btn btn-primary" data-toggle="collapse" href="#participants<?php echo e($cursa->id); ?>" role="button" aria-expanded="false" aria-controls="participants">
+                    Mostrar participants
+                </a>
+            </td>
+        </tr>
+        </tr>
+            <td colspan="11">
+            <div class="collapse" id="participants<?php echo e($cursa->id); ?>">
+                <div class="card card-body">
+                    <table>
+                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td>
+                        <?php $__currentLoopData = $participants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $participant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($cursa->id == $participant->races_id): ?>
+                                <tr>
+                                    <td><?php echo e($participant->dni); ?></td>
+                                    <td><?php echo e($participant->name_participant); ?></td>
+                                    <td><?php echo e($participant->address_home); ?></td>
+                                    <td><?php echo e($participant->insurers_id); ?></td>
+                                    <td><?php echo e($participant->date_birth); ?></td>
+                                <tr>
+                            <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </table>
+                </div>
+            </td>
         </tr>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>

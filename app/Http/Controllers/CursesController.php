@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Race;
+use App\Models\Participant;
 use App\Models\Insurer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,8 @@ class CursesController extends Controller
     }
     public function show(){
         $curses = Race::get();
-        return view('admin.curses.show',['curses' => $curses]);
+        $participants = Participant::get();
+        return view('admin.curses.show',['curses' => $curses,'participants' => $participants]);
     }
     public function update(){
         $curses = Race::find($_GET["id"]);
