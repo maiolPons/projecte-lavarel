@@ -3,8 +3,21 @@
 @section('titol','llistar Curses')
 @section('content')
 <div class="container">
-    
-    <div class="row">
+        <form action="{{route('llistarCursesPost')}}">
+        @csrf
+            <div class="row">
+                <div class="col-1">
+                    Buscador:
+                </div>
+                <div class="col-8">
+                    <input type="text" name="buscar" class="form-control" >
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </div>   
+        </form>
+        <div class="row">
             <h1>llistar curses</h1>
         </div>
         <div class="row">
@@ -33,20 +46,29 @@
                     Mostrar participants
                 </a>
             </td>
+            <td>
+                <a class="btn btn-primary" href="{{route('showUploadImages',['id' =>  $cursa->id])}}"><img src="{{url('/images/uploadImg.png')}}" class="imageIcon" alt="Imatges"></a>
+            </td>
         </tr>
         </tr>
             <td colspan="11">
             <div class="collapse" id="participants{{$cursa->id}}">
                 <div class="card card-body">
                     <table>
-                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td>
+                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td><td>
+                        <a class="btn btn-primary" href="{{route('generateDorsal',['id' =>  $cursa->id])}}">Imprimir dorçals</a>    
+                        </td>
                         @foreach($participants as $participant)
                             @if($cursa->id == $participant->races_id)
                                 <tr>
                                     <td>{{$participant->dni}}</td>
                                     <td>{{$participant->name_participant}}</td>
                                     <td>{{$participant->address_home}}</td>
-                                    <td>{{$participant->insurers_id }}</td>
+                                    @if($participant->insurers_id == null)
+                                        <td>Confederat</td>
+                                    @else
+                                        <td>Nom: {{$participant->insurers_name}} CIF: {{$participant->CIF}}</td>
+                                    @endif
                                     <td>{{$participant->date_birth}}</td>
                                 <tr>
                             @endif

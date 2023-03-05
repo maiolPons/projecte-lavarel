@@ -44,5 +44,12 @@ class ParticipantsController extends Controller
             return redirect(route("PaginaPrincipal"));
         }
     }
+    public function markTime(Request $request){
+        $result = DB::table('participants')->where('id', $request["id"])->where('finish_time' , null);
+        if($result->count() == 1){
+            $affected = DB::table('participants')->where('id', $request["id"])->update(['finish_time' => date('Y-m-d H:i:s')]);
+        }
+        return redirect(route("PaginaPrincipal"));
+    }
 }
 ?>

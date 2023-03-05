@@ -3,7 +3,20 @@
 @section('titol','llistar Aseguradores')
 @section('content')
 <div class="container">
-    
+    <form action="{{route('llistarInsurersPost')}}">
+        @csrf
+            <div class="row">
+                <div class="col-1">
+                    Buscador:
+                </div>
+                <div class="col-8">
+                    <input type="text" name="buscar" class="form-control" >
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </div>   
+        </form>
     <div class="row">
             <h1>llistar Aseguradores</h1>
         </div>

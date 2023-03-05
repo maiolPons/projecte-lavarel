@@ -35,8 +35,14 @@ class SponsorsController extends Controller
 
         return redirect()->route('crearSponsors');
     }
-    public function show(){
-        $sponsors = Sponsor::get();
+    public function show(Request $request){
+        if($request["buscar"]==null){
+            $sponsors = Sponsor::get();
+        }
+        else{
+            $sponsors = DB::table('sponsors')->where('CIF_sponsor', 'like', '%'.$request["buscar"].'%')->orWhere('name_sponsor', 'like', '%'.$request["buscar"].'%')->get();
+        }
+        
         return view('admin.sponsors.show',['sponsors' => $sponsors]);
     }
     public function update(){
