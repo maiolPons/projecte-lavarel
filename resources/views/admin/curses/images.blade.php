@@ -14,10 +14,14 @@
                 
             </div>
     @endif
-        <div class="col-4 file-drop-area">
-            <span class="choose-file-button">Choose files</span>
-            <span class="file-message">or drag and drop files here</span>
-            <input class="file-input" type="file" multiple>
+        <div class="col-4 file-upload-wrapper">
+            <div class="drag-image">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <h6>Drag & Drop File Here</h6>
+                <span>OR</span>
+                <button>Browse File</button>
+                <input type="file" hidden>
+            </div>
         </div>
     </div>
 </div>
