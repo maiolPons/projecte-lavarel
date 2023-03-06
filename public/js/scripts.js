@@ -45,12 +45,15 @@ $('#flexCheckDefault').change(function(){
     }
 });
 let dropArea; 
+let preview; 
 let dragText; 
 let button; 
 let file; 
 addEventListener("load", (event) => {
     try{
-        var dropArea = document.querySelector(".drag-image");
+        dropArea = document.querySelector(".drag-image");
+        preview = document.getElementById("preview");
+        console.log(dropArea);
         dragText = dropArea.querySelector("h6");
         button = dropArea.querySelector("button");
         input = dropArea.querySelector("input");
@@ -61,7 +64,6 @@ addEventListener("load", (event) => {
         input.addEventListener("change", function(){
         
             file = this.files[0];
-            dropArea.classList.add("active");
             viewfile();
         });
         
@@ -81,6 +83,8 @@ addEventListener("load", (event) => {
         event.preventDefault(); 
          
         file = event.dataTransfer.files[0];
+        dropArea.classList.remove("active");
+        dragText.textContent = "Drag & Drop to Upload File";
         viewfile(); 
       });
     }catch(error){}
@@ -89,20 +93,21 @@ addEventListener("load", (event) => {
 
 
 function viewfile(){
-  let fileType = file.type; 
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-  if(validExtensions.includes(fileType)){ 
-    let fileReader = new FileReader(); 
-    fileReader.onload = ()=>{
-      let fileURL = fileReader.result; 
-       let imgTag = `<img src="${fileURL}" alt="image">`;
-      dropArea.innerHTML = imgTag; 
+    let fileType = file.type; 
+    let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+    if(validExtensions.includes(fileType)){ 
+        let fileReader = new FileReader(); 
+        fileReader.onload = ()=>{
+            let fileURL = fileReader.result; 
+            console.log(file)
+            let imgTag = `<div class='photosUploadedPreview col-3'><img src="${fileURL}" alt="image"><div>`;
+            preview.innerHTML  += imgTag; 
+        }
+        fileReader.readAsDataURL(file);
+    }else{
+        dropArea.classList.remove("active");
+        dragText.textContent = "Drag & Drop to Upload File";
+        alert("This is not an Image File!");
     }
-    fileReader.readAsDataURL(file);
-  }else{
-    alert("This is not an Image File!");
-    dropArea.classList.remove("active");
-    dragText.textContent = "Drag & Drop to Upload File";
-  }
 }
 

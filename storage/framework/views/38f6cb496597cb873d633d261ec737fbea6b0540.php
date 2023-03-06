@@ -3,8 +3,21 @@
 <?php $__env->startSection('titol','llistar Curses'); ?>
 <?php $__env->startSection('content'); ?>
 <div class="container">
-    
-    <div class="row">
+        <form action="<?php echo e(route('llistarCursesPost')); ?>">
+        <?php echo csrf_field(); ?>
+            <div class="row">
+                <div class="col-1">
+                    Buscador:
+                </div>
+                <div class="col-8">
+                    <input type="text" name="buscar" class="form-control" >
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary">Buscar</button>
+                </div>
+            </div>   
+        </form>
+        <div class="row">
             <h1>llistar curses</h1>
         </div>
         <div class="row">
@@ -33,20 +46,29 @@
                     Mostrar participants
                 </a>
             </td>
+            <td>
+                <a class="btn btn-primary" href="<?php echo e(route('showUploadImages',['id' =>  $cursa->id])); ?>"><img src="<?php echo e(url('/images/uploadImg.png')); ?>" class="imageIcon" alt="Imatges"></a>
+            </td>
         </tr>
         </tr>
             <td colspan="11">
             <div class="collapse" id="participants<?php echo e($cursa->id); ?>">
                 <div class="card card-body">
                     <table>
-                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td>
+                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td><td>
+                        <a class="btn btn-primary" href="<?php echo e(route('generateDorsal',['id' =>  $cursa->id])); ?>">Imprimir dorçals</a>    
+                        </td>
                         <?php $__currentLoopData = $participants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $participant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($cursa->id == $participant->races_id): ?>
                                 <tr>
                                     <td><?php echo e($participant->dni); ?></td>
                                     <td><?php echo e($participant->name_participant); ?></td>
                                     <td><?php echo e($participant->address_home); ?></td>
-                                    <td><?php echo e($participant->insurers_id); ?></td>
+                                    <?php if($participant->insurers_id == null): ?>
+                                        <td>Confederat</td>
+                                    <?php else: ?>
+                                        <td>Nom: <?php echo e($participant->insurers_name); ?> CIF: <?php echo e($participant->CIF); ?></td>
+                                    <?php endif; ?>
                                     <td><?php echo e($participant->date_birth); ?></td>
                                 <tr>
                             <?php endif; ?>
