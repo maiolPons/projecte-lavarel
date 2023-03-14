@@ -25,14 +25,7 @@ function initMap(){
     //});
 }
 //modal formulari
-$(document).ready(function(){
-    $("#btnModalFormCursa").click(function(){
-      $("#FormulariAlta").modal("show");
-    });
-    $("#btnModalFormCursaClose").click(function(){
-        $("#FormulariAlta").modal("hide");
-    });
-});
+
 
 //
 $('#flexCheckDefault').change(function(){
