@@ -33,6 +33,7 @@ $(document).ready(function(){
         $("#FormulariAlta").modal("hide");
     });
 });
+
 //
 $('#flexCheckDefault').change(function(){
     if ($('#flexCheckDefault').is(':checked') == true){
@@ -43,4 +44,70 @@ $('#flexCheckDefault').change(function(){
         console.log('unchecked');
     }
 });
+let dropArea; 
+let preview; 
+let dragText; 
+let button; 
+let file; 
+addEventListener("load", (event) => {
+    try{
+        dropArea = document.querySelector(".drag-image");
+        preview = document.getElementById("preview");
+        console.log(dropArea);
+        dragText = dropArea.querySelector("h6");
+        button = dropArea.querySelector("button");
+        input = dropArea.querySelector("input");
+        button.onclick = ()=>{
+            input.click(); 
+        }
+        
+        input.addEventListener("change", function(){
+        
+            file = this.files[0];
+            viewfile();
+        });
+        
+        dropArea.addEventListener("dragover", (event)=>{
+            event.preventDefault();
+            dropArea.classList.add("active");
+            dragText.textContent = "Release to Upload File";
+        });
+        
+        
+        dropArea.addEventListener("dragleave", ()=>{
+            dropArea.classList.remove("active");
+            dragText.textContent = "Drag & Drop to Upload File";
+        }); 
+        
+        dropArea.addEventListener("drop", (event)=>{
+        event.preventDefault(); 
+         
+        file = event.dataTransfer.files[0];
+        dropArea.classList.remove("active");
+        dragText.textContent = "Drag & Drop to Upload File";
+        viewfile(); 
+      });
+    }catch(error){}
+});
+
+
+
+function viewfile(){
+    let fileType = file.type; 
+    let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+    if(validExtensions.includes(fileType)){ 
+        let fileReader = new FileReader(); 
+        fileReader.onload = ()=>{
+            let fileURL = fileReader.result; 
+            console.log(file)
+            let imgTag = `<div class='photosUploadedPreview col-3'><img src="${fileURL}" alt="image"><div>`;
+            preview.innerHTML  += imgTag; 
+        }
+        fileReader.readAsDataURL(file);
+    }else{
+        dropArea.classList.remove("active");
+        dragText.textContent = "Drag & Drop to Upload File";
+        alert("This is not an Image File!");
+    }
+}
 

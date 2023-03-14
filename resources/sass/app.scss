@@ -7,3 +7,150 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+.imageIcon{
+    width: 20px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'CloisterBlack';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/CloisterBlack.ttf');
+}
+@font-face {
+  font-family: 'Augusta';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/Augusta.ttf');
+}
+*{
+  font-family: Augusta;
+  font-size: 20px;
+}
+.drag-image{
+  border: 1px dashed #181616;
+  height: 300px;
+  width: 350px;
+  border-radius: 5px;
+  font-weight:400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.drag-image.active{
+  border: 2px solid #6f2b2b;
+}
+.drag-image .icon{
+  font-size: 30px;
+  color: #480707;
+}
+.drag-image h6{
+  font-size: 20px;
+  font-weight: 300;
+  color: #591212;
+}
+.drag-image span{
+  font-size: 14px;
+  font-weight: 300;
+  color: #541919;
+  margin: 10px 0 15px 0;
+}
+.drag-image button{
+  padding: 10px 25px;
+  font-size: 14px; 
+  font-weight: 300;
+  border: none;
+  outline: none;
+  background:transparent;
+  color: #941515;
+  border:1px solid #320505;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:all 0.5s;
+}
+
+.drag-image button:hover{
+    background-color:#4e2424;
+    color:red;
+}
+
+.drag-image img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.photosUploadedPreview img{
+  max-width:100%;
+  max-height:100%;
+  margin: none;
+  padding: none;
+  width: 350px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+#preview{
+  width: 350px;
+  max-height: 100px;
+  margin: 10px 0 15px 0;
+}
+.frame{
+  height: 200px;
+  background: transparent no-repeat center;
+  background-size: cover;
+}
+.frameSlider{
+  width: 100%;
+  height: 400px;
+}
+.subtitle{
+  font-size: 30px;
+  color: #242323;
+  font-family: CloisterBlack;
+}
+.title{
+  font-size: 40px;
+  font-family: CloisterBlack;
+}
+.mainNavbar{
+  padding-bottom: 20px;
+}
+.main-container{
+  background-color: white;
+  border: solid 10px rgba(#000, .2);
+
+}
+body{
+  background-image:  url('/public/images/background.png') !important;
+  background-repeat: repeat;
+}
+.h3-title{
+  margin-top: 30px;
+  text-align: center;
+  font-family: CloisterBlack;
+  font-size: 50px;
+}
+.titleSection{
+  font-family: CloisterBlack;
+  font-size: 30px;
+}
+.ban-tag{
+  color: rgb(105, 4, 4);
+  text-align: center;
+}
+.ban-tag p{
+  font-size: 40px;
+}
+footer{
+  padding-top: 30px;
+}
+.sticker-png {
+  transition: transform .7s ease-in-out;
+}
+.sticker-png:hover {
+  transform: rotate(360deg);
+}

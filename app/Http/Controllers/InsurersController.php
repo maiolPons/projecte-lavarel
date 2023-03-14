@@ -24,8 +24,13 @@ class InsurersController extends Controller
 
         return redirect()->route('crearInsurers');
     }
-    public function show(){
-        $insurers = Insurer::get();
+    public function show(Request $request){
+        if($request["buscar"]==null){
+            $insurers = Insurer::get();
+        }
+        else{
+            $insurers = DB::table('insurers')->where('CIF', 'like', '%'.$request["buscar"].'%')->orWhere('insurers_name', 'like', '%'.$request["buscar"].'%')->get();
+        }
         return view('admin.insurers.show',['insurers' => $insurers]);
     }
     public function update(){

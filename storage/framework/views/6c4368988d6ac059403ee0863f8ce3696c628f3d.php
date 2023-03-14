@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="row justify-content-center">
     <div class="col-8">
-        <img src="/storage/<?php echo e($race->promotion_img); ?>">
+    <div class="frame" style="background-image: url('/storage/<?php echo e($race->promotion_img); ?>')"></div>
     </div>
 </div>
 <div class="row justify-content-center">
@@ -11,6 +11,11 @@
         <h2>Detalls Cursa</h2>
     </div>
 </div>
+<?php if(now() > $race->date_start): ?>
+    <div class="row ban-tag">
+        <p><img  width="40" height="40" src="<?php echo e(url('/images/sword-01.svg')); ?>">Inscripcio tancada<img  width="40" height="40" src="<?php echo e(url('/images/sword-01.svg')); ?>"></p>
+    </div>
+<?php endif; ?>
 <div class="row justify-content-center">
     <div class="col-5">
         <p>Descripcio: <?php echo e($race->description); ?></p>
@@ -22,9 +27,11 @@
     </div>
     <div class="col-3">
      <!-- Button trigger modal -->
-    <button type="button" id="btnModalFormCursa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-        Participa !
-    </button>
+     <?php if(now() < $race->date_start): ?>
+        <button type="button" id="btnModalFormCursa" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+            Participa !
+        </button>
+    <?php endif; ?>
 
     </div>
 </div>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name_participant');
             $table->string('address_home');
             $table->date('date_birth');
+            $table->dateTime('finish_time')->nullable();
             $table->unsignedBigInteger('insurers_id')->nullable();
             $table->index('insurers_id');
             $table->unsignedBigInteger('races_id');

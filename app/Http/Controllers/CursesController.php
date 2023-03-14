@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Race;
+use App\Models\Participant;
 use App\Models\Insurer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -43,9 +44,17 @@ class CursesController extends Controller
 
         return redirect()->route('crearCurses');
     }
-    public function show(){
-        $curses = Race::get();
-        return view('admin.curses.show',['curses' => $curses]);
+    public function show(Request $request){
+
+        if($request["buscar"]==null){
+            $curses = Race::get();
+        }
+        else{
+            $curses = DB::table('races')->where('description', 'like', '%'.$request["buscar"].'%')->get();
+        }
+        
+        $participants = DB::table('participants')->leftJoin('insurers','participants.insurers_id','insurers.id')->get();
+        return view('admin.curses.show',['curses' => $curses,'participants' => $participants]);
     }
     public function update(){
         $curses = Race::find($_GET["id"]);
@@ -99,5 +108,9 @@ class CursesController extends Controller
             ]);
         }
         return redirect()->route('llistarCurses'); 
+    }
+    public function showUploadImages(){
+        $path = public_path().'/images/'.$_GET["id"];
+        return view('admin.curses.images',['path' => $path]);
     }
 }

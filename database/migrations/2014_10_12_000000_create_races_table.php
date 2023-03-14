@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('kms');
             $table->string('cost_price');
             $table->string('promotion_img');
-            $table->string('time_start');
+            $table->time('time_start');
             $table->date('date_start');
             $table->tinyInteger('status')->default('1');
             $table->timestamps();

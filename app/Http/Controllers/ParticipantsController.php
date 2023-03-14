@@ -10,11 +10,10 @@ use App\Models\Participant;
 class ParticipantsController extends Controller
 {
     public function showMain(){
-        //$reservation_id="ASD";
-        //\QrCode::generate($reservation_id, base_path()."/public/storage/qr/".$reservation_id.'.svg');
+        $lastOnes=Race::latest()->limit(3)->get();
         $cursesNoExprire=DB::table('races')->whereDate('date_start', '>=', date("Y-m-d"))->get();
         $cursesExprired=DB::table('races')->whereDate('date_start', '<=', date("Y-m-d"))->get();
-        return view("general.principal",['cursesNoExprire' => $cursesNoExprire,'cursesExprired' => $cursesExprired]);
+        return view("general.principal",['cursesNoExprire' => $cursesNoExprire,'cursesExprired' => $cursesExprired, 'lastOnes' => $lastOnes]);
     }
     public function create(Request $request){
         $race = Race::find($request->id);
@@ -43,6 +42,13 @@ class ParticipantsController extends Controller
             Participant::create($data);
             return redirect(route("PaginaPrincipal"));
         }
+    }
+    public function markTime(Request $request){
+        $result = DB::table('participants')->where('id', $request["id"])->where('finish_time' , null);
+        if($result->count() == 1){
+            $affected = DB::table('participants')->where('id', $request["id"])->update(['finish_time' => date('Y-m-d H:i:s')]);
+        }
+        return redirect(route("PaginaPrincipal"));
     }
 }
 ?>
