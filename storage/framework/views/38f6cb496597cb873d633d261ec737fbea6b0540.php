@@ -54,13 +54,14 @@
             <td colspan="11">
             <div class="collapse" id="participants<?php echo e($cursa->id); ?>">
                 <div class="card card-body">
-                    <table>
-                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td><td>
+                    <table class="mytable">
+                    <thead><tr><th>dni</th><th>nom</th><th>adreça</th><th>aseguradora</th><th>data de naixament</th><th>
                         <a class="btn btn-primary" href="<?php echo e(route('generateDorsal',['id' =>  $cursa->id])); ?>">Imprimir dorçals</a>    
-                        </td>
+                        </th></tr><thead>
                         <?php $__currentLoopData = $participants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $participant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($cursa->id == $participant->races_id): ?>
-                                <tr>
+                            
+                            <tbody><tr>
                                     <td><?php echo e($participant->dni); ?></td>
                                     <td><?php echo e($participant->name_participant); ?></td>
                                     <td><?php echo e($participant->address_home); ?></td>
@@ -70,7 +71,7 @@
                                         <td>Nom: <?php echo e($participant->insurers_name); ?> CIF: <?php echo e($participant->CIF); ?></td>
                                     <?php endif; ?>
                                     <td><?php echo e($participant->date_birth); ?></td>
-                                <tr>
+                                <tr></tbody>
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </table>

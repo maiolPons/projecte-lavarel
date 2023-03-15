@@ -54,13 +54,14 @@
             <td colspan="11">
             <div class="collapse" id="participants{{$cursa->id}}">
                 <div class="card card-body">
-                    <table>
-                        <td>dni</td><td>nom</td><td>adreça</td><td>aseguradora</td><td>data de naixament</td><td>
+                    <table class="mytable">
+                    <thead><tr><th>dni</th><th>nom</th><th>adreça</th><th>aseguradora</th><th>data de naixament</th><th>
                         <a class="btn btn-primary" href="{{route('generateDorsal',['id' =>  $cursa->id])}}">Imprimir dorçals</a>    
-                        </td>
+                        </th></tr><thead>
                         @foreach($participants as $participant)
                             @if($cursa->id == $participant->races_id)
-                                <tr>
+                            
+                            <tbody><tr>
                                     <td>{{$participant->dni}}</td>
                                     <td>{{$participant->name_participant}}</td>
                                     <td>{{$participant->address_home}}</td>
@@ -70,7 +71,7 @@
                                         <td>Nom: {{$participant->insurers_name}} CIF: {{$participant->CIF}}</td>
                                     @endif
                                     <td>{{$participant->date_birth}}</td>
-                                <tr>
+                                <tr></tbody>
                             @endif
                         @endforeach
                     </table>

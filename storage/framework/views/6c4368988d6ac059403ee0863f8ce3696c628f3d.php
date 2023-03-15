@@ -14,6 +14,7 @@
 <?php if(now() > $race->date_start): ?>
     <div class="row ban-tag">
         <p><img  width="40" height="40" src="<?php echo e(url('/images/sword-01.svg')); ?>">Inscripcio tancada<img  width="40" height="40" src="<?php echo e(url('/images/sword-01.svg')); ?>"></p>
+        <p><a href="<?php echo e(route('veureResultats', $race->id)); ?>">Veure resultats</a><p>
     </div>
 <?php endif; ?>
 
@@ -32,11 +33,11 @@
         <button type="button" id="btnModalFormCursa" class="btn btn-primary" data-toggle="modal" data-target="#FormulariAlta">
             Participa !
         </button>
-        <div class="container">
+        <div class="modal fade container" id="FormulariAlta" tabindex="-1" role="dialog" aria-labelledby="FormulariAltaTitle" aria-hidden="true">
+            <div class="container modalContainer">
             <div class="row">
                 <div class="col-8">
                     <!-- Modal -->
-                    <div class="modal fade" id="FormulariAlta" tabindex="-1" role="dialog" aria-labelledby="FormulariAltaTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -189,7 +190,72 @@ unset($__errorArgs, $__bag); ?>
                                     </div>
                                     <div class="row mb-3">
                                         <input type="hidden" value="<?php echo e($race->id); ?>" name="races_id">
-                                        <input type="submit" class="btn btn-primary" value="Confirmar">
+                                  
+                                        <script src="https://www.paypal.com/sdk/js?client-id=ATgjq3JYSmW3aRepW8o7Nr1EL-xpgd8MlDfh4BbSEOHEQ82yxZpEE_NWsfIQ-MAFIBDJ5Tv-TwvWmx1i&currency=USD"></script>
+                                        <div>
+                                            <div id="paypal-button-container"></div>
+                                        </div>
+                                        
+                                        <script>
+                                        paypal.Buttons({
+                                            onClick()  {
+                                                // Show a validation error if the checkbox is not checked
+                                                if (!document.getElementById('dni').value
+                                                    || !document.getElementById('name_participant').value
+                                                    || !document.getElementById('address_home').value
+                                                    || !document.getElementById('date_birth').value
+                                                    || !document.getElementById('selectFormCursa').value
+                                                ) {
+                                                    return false;
+                                                }
+                                            },
+                                            // Order is created on the server and the order id is returned
+                                            createOrder() {
+                                            return fetch("/api/create-paypal-order", {
+                                                method: "POST",
+                                                headers: {
+                                                "Content-Type": "application/json",
+                                                },
+                                                // use the "body" param to optionally pass additional order information
+                                                // like product skus and quantities
+                                                body: JSON.stringify({
+                                                cart: [
+                                                    {
+                                                    sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                                                    quantity: "YOUR_PRODUCT_QUANTITY",
+                                                    },
+                                                ],
+                                                }),
+                                            })
+                                            .then((response) => response.json())
+                                            .then((order) => order.id);
+                                            },
+                                            // Finalize the transaction on the server after payer approval
+                                            onApprove(data) {
+                                            return fetch("/api/capture-paypal-order", {
+                                                method: "POST",
+                                                headers: {
+                                                "Content-Type": "application/json",
+                                                },
+                                                body: JSON.stringify({
+                                                orderID: data.orderID
+                                                })
+                                            })
+                                            .then((response) => response.json())
+                                            .then((orderData) => {
+                                                // Successful capture! For dev/demo purposes:
+                                                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                                                const transaction = orderData.purchase_units[0].payments.captures[0];
+                                                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                                                // When ready to go live, remove the alert and show a success message within this page. For example:
+                                                // const element = document.getElementById('paypal-button-container');
+                                                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                                                // Or go to another URL:  window.location.href = 'thank_you.html';
+                                            });
+                                            }
+                                        }).render('#paypal-button-container');
+                                        </script>
+                                        <!--<input type="submit" class="btn btn-primary" value="Confirmar">-->
                                     </div>
                                 </form>
                             </div>

@@ -113,4 +113,8 @@ class CursesController extends Controller
         $path = public_path().'/images/'.$_GET["id"];
         return view('admin.curses.images',['path' => $path]);
     }
+    public function showResults(Request $request){
+        $race = Race::find($request->id);
+        return view('general.races.showResults',['race' => $race]);
+    }
 }

@@ -17,6 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script type="text/javascript" src="{{ URL::to('js/scripts.js') }}"></script>
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -74,10 +76,9 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <div class=" py-4 container main-container">
             @yield('content')
-        </main>
+        </div>
     </div>
 </body>
 </html>

@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/create-paypal-order/', function (){
+    return ("create-paypal-order");
+});
+Route::post('/capture-paypal-order/', function (){
+    return ("capture-paypal-order");
+});
+

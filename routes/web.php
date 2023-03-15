@@ -21,6 +21,8 @@ use App\Http\Controllers\PDFController;
 Route::get('/', [ParticipantsController::class, 'showMain'])->name("PaginaPrincipal");
 Route::get('/cursa/{id}', [ParticipantsController::class, 'create'])->name("crearParticipant");
 Route::post('/participantStore/', [ParticipantsController::class, 'store'])->name("GuardarParticipant");
+Route::get('/veureResultats/{id}', [CursesController::class, 'showResults'])->name("veureResultats");
+
 //marcar temps participant
 Route::get('/participantTemps/{id}', [ParticipantsController::class, 'markTime'])->name("markTime")->middleware('auth');
 //rutes administrador
