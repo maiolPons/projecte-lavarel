@@ -19,6 +19,11 @@
     <script type="text/javascript" src="{{ URL::to('js/scripts.js') }}"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/dropzone.min.js" integrity="sha512-YxGw9l+ucSImbT3JyAVipX4FOsN2TjhxLY6hS2+5FyFt42aGur4iR1ejk0cQktKYohKEYYwitUQf1N7kh5+gog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="_token" content="{{csrf_token()}}" />
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

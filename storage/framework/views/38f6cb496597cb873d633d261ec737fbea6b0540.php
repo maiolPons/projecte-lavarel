@@ -46,7 +46,7 @@
                     Mostrar participants
                 </a>
             </td>
-            <td>
+            <td> 
                 <a class="btn btn-primary" href="<?php echo e(route('showUploadImages',['id' =>  $cursa->id])); ?>"><img src="<?php echo e(url('/images/uploadImg.png')); ?>" class="imageIcon" alt="Imatges"></a>
             </td>
         </tr>

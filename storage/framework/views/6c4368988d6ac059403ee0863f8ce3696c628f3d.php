@@ -191,71 +191,8 @@ unset($__errorArgs, $__bag); ?>
                                     <div class="row mb-3">
                                         <input type="hidden" value="<?php echo e($race->id); ?>" name="races_id">
                                   
-                                        <script src="https://www.paypal.com/sdk/js?client-id=ATgjq3JYSmW3aRepW8o7Nr1EL-xpgd8MlDfh4BbSEOHEQ82yxZpEE_NWsfIQ-MAFIBDJ5Tv-TwvWmx1i&currency=USD"></script>
-                                        <div>
-                                            <div id="paypal-button-container"></div>
-                                        </div>
-                                        
-                                        <script>
-                                        paypal.Buttons({
-                                            onClick()  {
-                                                // Show a validation error if the checkbox is not checked
-                                                if (!document.getElementById('dni').value
-                                                    || !document.getElementById('name_participant').value
-                                                    || !document.getElementById('address_home').value
-                                                    || !document.getElementById('date_birth').value
-                                                    || !document.getElementById('selectFormCursa').value
-                                                ) {
-                                                    return false;
-                                                }
-                                            },
-                                            // Order is created on the server and the order id is returned
-                                            createOrder() {
-                                            return fetch("/api/create-paypal-order", {
-                                                method: "POST",
-                                                headers: {
-                                                "Content-Type": "application/json",
-                                                },
-                                                // use the "body" param to optionally pass additional order information
-                                                // like product skus and quantities
-                                                body: JSON.stringify({
-                                                cart: [
-                                                    {
-                                                    sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-                                                    quantity: "YOUR_PRODUCT_QUANTITY",
-                                                    },
-                                                ],
-                                                }),
-                                            })
-                                            .then((response) => response.json())
-                                            .then((order) => order.id);
-                                            },
-                                            // Finalize the transaction on the server after payer approval
-                                            onApprove(data) {
-                                            return fetch("/api/capture-paypal-order", {
-                                                method: "POST",
-                                                headers: {
-                                                "Content-Type": "application/json",
-                                                },
-                                                body: JSON.stringify({
-                                                orderID: data.orderID
-                                                })
-                                            })
-                                            .then((response) => response.json())
-                                            .then((orderData) => {
-                                                // Successful capture! For dev/demo purposes:
-                                                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                                                const transaction = orderData.purchase_units[0].payments.captures[0];
-                                                alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-                                                // When ready to go live, remove the alert and show a success message within this page. For example:
-                                                // const element = document.getElementById('paypal-button-container');
-                                                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                                                // Or go to another URL:  window.location.href = 'thank_you.html';
-                                            });
-                                            }
-                                        }).render('#paypal-button-container');
-                                        </script>
-                                        <!--<input type="submit" class="btn btn-primary" value="Confirmar">-->
+                                    
+                                        <input type="submit" class="btn btn-primary" value="Confirmar">
                                     </div>
                                 </form>
                             </div>
@@ -276,7 +213,7 @@ unset($__errorArgs, $__bag); ?>
 <div class="row justify-content-center" id="divMap">
     <div class="col-8 h-100" id="map"></div>
         <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCV85fgRAcaliCXmgSTV2SiVpaaUdGzqD4&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8LImHOzl8xixsne_BHy5cjUMykZQlA7U&callback=initMap">
         </script>
 </div>
 <?php $__env->stopSection(); ?>

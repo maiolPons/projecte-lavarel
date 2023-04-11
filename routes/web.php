@@ -6,6 +6,8 @@ use App\Http\Controllers\CursesController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\SponsorsController;
 use App\Http\Controllers\InsurersController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +22,18 @@ use App\Http\Controllers\PDFController;
 //experiencia d'usuari
 Route::get('/', [ParticipantsController::class, 'showMain'])->name("PaginaPrincipal");
 Route::get('/cursa/{id}', [ParticipantsController::class, 'create'])->name("crearParticipant");
-Route::post('/participantStore/', [ParticipantsController::class, 'store'])->name("GuardarParticipant");
-Route::get('/veureResultats/{id}', [CursesController::class, 'showResults'])->name("veureResultats");
-
+Route::post('/participantStore/', [PaymentController::class, 'charge'])->name("GuardarParticipant");
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);
+Route::get('/pagament/', [PaymentController::class, 'pagament'])->name("pagament");
+Route::get('/veureResultats/{idRace}', [CursesController::class, 'showResults'])->name("veureResultats");
+Route::post('/buscar/', [CursesController::class, 'search'])->name("BuscarCursa");
+Route::get('/buscar/', [CursesController::class, 'search'])->name("BuscarCursa");
+Route::get('/mesActiu/', [CursesController::class, 'mesActiuFunction'])->name("mesActiu");
+Route::get('/mesInactiu/', [CursesController::class, 'mesInactiuFunction'])->name("mesInactiu");
+//gallery
+Route::get('/gallery/upload/', [GalleryController::class, 'upload'])->name("showUploadImages")->middleware('auth');
+Route::post('image/upload/store', [GalleryController::class, 'store'])->name("storeImage")->middleware('auth');
 //marcar temps participant
 Route::get('/participantTemps/{id}', [ParticipantsController::class, 'markTime'])->name("markTime")->middleware('auth');
 //rutes administrador
@@ -32,10 +43,10 @@ Route::get('/curses/crear/', [CursesController::class, 'create'])->name("crearCu
 Route::post('/cursesStore/', [CursesController::class, 'store'])->name("GuardarCurses")->middleware('auth');
 Route::get('/curses/show/', [CursesController::class, 'show'])->name("llistarCurses")->middleware('auth');
 Route::post('/curses/show/', [CursesController::class, 'show'])->name("llistarCursesPost")->middleware('auth');
-Route::get('/curses/update/', [CursesController::class, 'update'])->name("modificarCurses")->middleware('auth');
+Route::get('/curses/update/', [CursesController::class, 'update'])->name("modificarCurses")->middleware('auth');    
 Route::post('/cursesUpdate/', [CursesController::class, 'updated'])->name("actualitzarCurses")->middleware('auth');
 Route::get('updateStateRace/{id}',[CursesController::class,'updateState'])->name('actualitzarEstatCurses')->middleware('auth');
-Route::get('/curses/show/images/', [CursesController::class, 'showUploadImages'])->name("showUploadImages")->middleware('auth');
+//Route::get('/curses/show/images/', [CursesController::class, 'showUploadImages'])->name("showUploadImages")->middleware('auth');
 //sponsors
 Route::get('/sponsors/crear/', [SponsorsController::class, 'create'])->name("crearSponsors")->middleware('auth');
 Route::post('/sponsorsStore/', [SponsorsController::class, 'store'])->name("GuardarSponsors")->middleware('auth');

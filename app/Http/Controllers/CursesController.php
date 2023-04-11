@@ -3,9 +3,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Race;
 use App\Models\Participant;
+use App\Models\Gallery;
 use App\Models\Insurer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use DataTables;
+use Carbon\Carbon;
 
 class CursesController extends Controller
 {
@@ -109,12 +112,43 @@ class CursesController extends Controller
         }
         return redirect()->route('llistarCurses'); 
     }
-    public function showUploadImages(){
-        $path = public_path().'/images/'.$_GET["id"];
-        return view('admin.curses.images',['path' => $path]);
+
+
+    public function showResults($idRace){
+        $race = Race::find($idRace);
+        $currentDate = Carbon::now();
+        $images = Gallery::select('*')->where('id_races', $idRace)->paginate(8);
+        $data = Participant::select('*')->where('races_id', $idRace)->orderBy('finish_time', 'asc')->get();
+        $dataJunior = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '<=', $currentDate->subYears(19)->toDateString())->orderBy('finish_time', 'asc')->get();
+        $data20 = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '>=', $currentDate->subYears(20)->toDateString())->where('date_birth' , '<=', $currentDate->subYears(29)->toDateString())->orderBy('finish_time', 'asc')->get();
+        $data30 = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '>=', $currentDate->subYears(30)->toDateString())->where('date_birth' , '<=', $currentDate->subYears(39)->toDateString())->orderBy('finish_time', 'asc')->get();
+        $data40 = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '>=', $currentDate->subYears(40)->toDateString())->where('date_birth' , '<=', $currentDate->subYears(49)->toDateString())->orderBy('finish_time', 'asc')->get();
+        $data50 = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '>=', $currentDate->subYears(50)->toDateString())->where('date_birth' , '<=', $currentDate->subYears(59)->toDateString())->orderBy('finish_time', 'asc')->get();
+        $data60 = Participant::select('*')->where('races_id', $idRace)->where('date_birth' , '>=', $currentDate->subYears(60)->toDateString())->orderBy('finish_time', 'asc')->get();
+
+        return view('general.races.showResults',
+        [
+            'race' => $race,
+            'data' => $data,
+            'dataJunior' => $dataJunior,
+            'data20' => $data20,
+            'data30' => $data30,
+            'data40' => $data40,
+            'data50' => $data50,
+            'data60' => $data60,
+            'images' => $images
+        ]);
     }
-    public function showResults(Request $request){
-        $race = Race::find($request->id);
-        return view('general.races.showResults',['race' => $race]);
+    public function search(Request $request){
+        $curses = DB::table('races')->where('description', 'like', '%'.$request["buscar"].'%')->orWhere('map_url', 'like', '%'.$request["buscar"].'%')->orWhere('time_start', 'like', '%'.$request["buscar"].'%')->where('status',1)->paginate(8);
+        return view('general.search',['curses' => $curses]);
+    }
+    public function mesActiuFunction(Request $request){
+        $curses=DB::table('races')->whereDate('date_start', '>=', date("Y-m-d"))->where('status',1)->paginate(8);
+        return view('general.mesActiu',['curses' => $curses]);
+    }
+    public function mesInactiuFunction(Request $request){
+        $curses=DB::table('races')->whereDate('date_start', '<=', date("Y-m-d"))->where('status',1)->paginate(8);
+        return view('general.mesInactiu',['curses' => $curses]);
     }
 }

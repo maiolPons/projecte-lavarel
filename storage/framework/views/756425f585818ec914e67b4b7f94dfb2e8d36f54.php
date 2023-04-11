@@ -19,6 +19,8 @@
     <script type="text/javascript" src="<?php echo e(URL::to('js/scripts.js')); ?>"></script>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/sass/app.scss', 'resources/js/app.js']); ?>
 </head>

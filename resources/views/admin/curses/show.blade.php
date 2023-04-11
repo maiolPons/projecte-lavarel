@@ -46,7 +46,7 @@
                     Mostrar participants
                 </a>
             </td>
-            <td>
+            <td> 
                 <a class="btn btn-primary" href="{{route('showUploadImages',['id' =>  $cursa->id])}}"><img src="{{url('/images/uploadImg.png')}}" class="imageIcon" alt="Imatges"></a>
             </td>
         </tr>
